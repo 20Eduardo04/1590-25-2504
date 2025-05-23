@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitio Personal del Alumno</title>
+    <style>
+        body {
+            margin: 2;
+            padding: 2;
+            font-family: Arial, sans-serif;
+        }
+        .frame-container {
+            display: flex;
+            height: 100vh;
+        }
+        .menu-frame {
+            width: 200px;
+            background-color: #000000;
+            color: white;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .content-frame {
+            flex: 2;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #bdbdbd;
+        }
+        .menu-item {
+            padding: 12px;
+            margin: 30px 0;
+            background-color: #727272;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .menu-item:hover {
+            background-color: #1abc9c;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #2c3e50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            transition: transform 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+        .game-container {
+            width: 100%;
+            height: 400px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        #snake {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #1abc9c;
+        }
+        .food {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #e74c3c;
+            border-radius: 50%;
+        }
+        .manual-step {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="frame-container">
+        <!-- Marco del menú -->
+        <div class="menu-frame">
+            <h2>Menú Principal</h2>
+            <div class="menu-item" onclick="showContent('cv')">Hoja_de_vida</div>
+            <div class="menu-item" onclick="showContent('grades')">Notas</div>
+            <div class="menu-item" onclick="showContent('gallery')">Galería</div>
+            <div class="menu-item" onclick="showContent('video')">Video</div>
+            <div class="menu-item" onclick="showContent('game')">Juego</div>
+            <div class="menu-item" onclick="showContent('manual')">Manual_de_Creacion</div>
+        </div>
+
+        <!-- Marco de contenido -->
+        <div class="content-frame" id="content-frame">
+            <h1 id="content-title">Bienvenido a mi sitio personal</h1>
+            <div id="content-body">
+                <p>Selecciona una opción del menú para ver el contenido.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para mostrar el contenido según la opción seleccionada
+        function showContent(section) {
+            const contentFrame = document.getElementById('content-frame');
+            const contentTitle = document.getElementById('content-title');
+            const contentBody = document.getElementById('content-body');
+
+            switch(section) {
+                case 'cv':
+                    contentTitle.textContent = 'Hoja de Vida';
+                    contentBody.innerHTML = `
+                        <h2>Datos Personales</h2>
+                        <p><strong>Nombre:</strong> Cristian Eduardo Ramos Ucelo </p>
+                        <p><strong>Fecha de Nacimiento:</strong> 06-10-2004 </p>
+                        <p><strong>Dirección:</strong> El Cerinal, Barberena, Santa Rosa </p>
+                        <p><strong>Teléfono:</strong> 45042002 </p>
+                        <p><strong>Correo Electronico:</strong> cramosu@miumg.edu.gt </p>
+                        
+                        <h2>Educación</h2>
+                        <p><strong>Intecap CG2 </strong> - Tecnico en Electricidad Industrial (2021-2023)</p>
+                        <p><strong>Colegio Nocturma Lic. Carlos Lemus </strong> - Bachiller en Ciencias y Letras (2023-2023)</p>
+                        
+                        <h2>Experiencia Laboral</h2>
+                        <p><strong>Electricista Industrial</strong> - Empresa Industrial Avicola Rosanda (2024-2025)</p>
+                        <ul>
+                            <li>Intalaciones electricas</li>
+                            <li>Mantenimiento preventivo y correctivo</li>
+                            <li>Instalaciones de motores Monofasicos y trifasicos</li>
+                            <li>Instalacion de cableado estructurado</li>
+                        </ul>
+                        
+                        <h2>Habilidades</h2>
+                        <ul>
+                            <li>trabajar bajo precion</li>
+                            <li>programacion de PLC</li>
+                            <li>resolucion de problemas</li>
+                        </ul>
+                    `;
+                    break;
+                    
+                case 'grades':
+                    contentTitle.textContent = 'Notas';
+                    contentBody.innerHTML = `
+                        <h2>Notas 1er Parcial y 2do Parcial</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Curso</th>
+                                    <th>Primer Parcial</th>
+                                    <th>Segundo Parcial</th>
+                                    <th>Promedio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Teoria de Sistema</td>
+                                    <td>12</td>
+                                    <td>10</td>
+                                    <td>11</td>
+                                </tr>
+                                <tr>
+                                    <td>Organizacion de Lenguajes y Compiladores</td>
+                                    <td>14</td>
+                                    <td>7</td>
+                                    <td>10.5</td>
+                                </tr>
+                                <tr>
+                                    <td>Manejo e implementacion de archivos</td>
+                                    <td>20</td>
+                                    <td>10</td>
+                                    <td>15</td>
+                                </tr>
+                                <tr>
+                                    <td>Matematica aplicada 1</td>
+                                    <td>20</td>
+                                    <td>20</td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td>Matematica Aplicada 2</td>
+                                    <td>15</td>
+                                    <td>10</td>
+                                    <td>12.5</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    `;
+                    break;
+                    
+                case 'gallery':
+                    contentTitle.textContent = 'Galería';
+                    contentBody.innerHTML = `
+                        <h2>Mi Galería</h2>
+                        <div class="gallery">
+                            <img src="https://www.shutterstock.com/image-illustration/david-street-style-graphic-designtextile-600nw-2265632523.jpg" alt="Imagen 1">
+                            <img src="https://previews.123rf.com/images/aprillrain/aprillrain2212/aprillrain221200638/196354278-imagen-de-caricatura-de-un-astronauta-sentado-en-una-luna-ilustraci%C3%B3n-de-alta-calidad.jpg" alt="Imagen 2">
+                            <img src="https://wallpapers.com/images/featured/imagenes-de-minions-qhq2hsgjf7kh8a2h.jpg" alt="Imagen 3">
+                            <img src="https://imagenes.eltiempo.com/files/image_1200_535/uploads/2018/03/22/5ab428c6cda71.jpeg" alt="Imagen 4">
+                            <img src="https://cdn.agenciasinc.es/var/ezwebin_site/storage/images/_aliases/img_1col/noticias/las-mejores-imagenes-cientificas-de-2024-segun-nature/12207004-5-esl-MX/Las-mejores-imagenes-cientificas-de-2024-segun-Nature.png" alt="Imagen 5">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVring1Y4Initgg49VAm4-7qdT4-UvU05Rww&s" alt="Imagen 6">
+                            <img src="https://iccsi.com.ar/wp-content/uploads/como-se-llama-la-ia-que-describe-imagenes.webp" alt="Imagen 7">
+                            <img src="https://static.vecteezy.com/system/resources/thumbnails/009/273/280/small/concept-of-loneliness-and-disappointment-in-love-sad-man-sitting-element-of-the-picture-is-decorated-by-nasa-free-photo.jpg" alt="Imagen 8">
+                            <img src="https://s1.1zoom.me/big3/471/Painting_Art_Back_view_Photographer_575380_3840x2400.jpg" alt="Imagen 9">
+                            <img src="https://media.gettyimages.com/id/1903985199/es/vector/heart-flat-icon.jpg?s=612x612&w=gi&k=20&c=dx5q9D6AGG138rkdO8bzwI9pDoeizNZZkPe1_EuO4dQ=" alt="Imagen 10">
+                        </div>
+                    `;
+                    break;
+                    
+                case 'video':
+                    contentTitle.textContent = 'Video de YouTube';
+                    contentBody.innerHTML = `
+                        <h2>Mi_Cancion_Favorito</h2>
+                        <div style="max-width: 800px; margin: 0 auto;">
+                            <iframe width="100%" height="450" src="https://youtu.be/UkcLVvSntjA?si=Ng7EkTJR0cCI-RUA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'game':
+                    contentTitle.textContent = 'Juego de Reflejos';
+                    contentBody.innerHTML = `
+                        <h2>Haz clic en el cuadrado azul</h2>
+                        <p>¡Haz clic en el cuadrado azul lo más rápido posible para ganar puntos!</p>
+                        <div class="game-container" id="click-game-container"></div>
+                        <p id="click-score">Puntuación: 0</p>
+                    `;
+                    initClickGame();
+                    break;
+               
+                case 'manual':
+                    contentTitle.textContent = 'Manual de Creacion';
+                    contentBody.innerHTML = `
+                        <h2>Pasos para crear este sitio web</h2>
+                        
+                        <div class="manual-step">
+                            <h3>1. Estructura básica</h3>
+                            <p>Deve creé un documento HTML5 con la estructura básica: doctype, html, head y body.</p>
+                        </div>
+                        
+                        <div class="manual-step">
+                            <h3>2. Diseño de marcos</h3>
+                            <p>agregue un diseño con dos marcos usando flexbox: uno para el menú (250px) y otro para el contenido principal (flexible).</p>
+                        </div>
+                        
+                        <div class="manual-step">
+                            <h3>3. Estilos CSS</h3>
+                            <p>Agregué estilos CSS para dar formato al menú, los marcos, tablas, galería y otros elementos visuales.</p>
+                        </div>
+                        
+                        <div class="manual-step">
+                            <h3>4. Funcionalidad de JavaScript</h3>
+                            <p>Implementé la función showContent() que cambia dinámicamente el contenido según la opción seleccionada en el menú.</p>
+                        </div>
+                        
+                        <div class="manual-step">
+                            <h3>5. Contenido de las secciones</h3>
+                            <p>Tener que desarrollar cada una de las secciones solicitadas:
+                                <ul>
+                                    <li>Hoja de vida con datos personales, educación y experiencia</li>
+                                    <li>Tabla de notas con datos de ejemplo</li>
+                                    <li>Galería de imágenes usando Unsplash para imágenes aleatorias</li>
+                                    <li>Integración de video de YouTube con iframe</li>
+                                    <li>Juego simple de la serpiente con JavaScript</li>
+                                    <li>Este manual técnico</li>
+                                </ul>
+                            </p>
+                        </div>
+                        
+                        <div class="manual-step">
+                            <h3>6. Juego de la Serpiente</h3>
+                            <p>Implementé un juego simple de la serpiente con JavaScript puro:
+                                <ul>
+                                    <li>Detección de teclas de dirección</li>
+                                    <li>Generación aleatoria de comida</li>
+                                    <li>Crecimiento de la serpiente al comer</li>
+                                    <li>Detección de colisiones</li>
+                                    <li>Sistema de puntuación</li>
+                                </ul>
+                            </p>
+                        </div>
+                    `;
+                    break;
+                    
+                default:
+                    contentTitle.textContent = 'Bienvenido a mi sitio personal';
+                    contentBody.innerHTML = '<p>Selecciona una opción del menú para ver el contenido.</p>';
+            }
+        }
+
+        // Juego de Reflejos
+        function initClickGame() {
+            const container = document.getElementById('click-game-container');
+            const scoreElement = document.getElementById('click-score');
+            let score = 0;
+            let box = null;
+
+            function createBox() {
+                if (box) container.removeChild(box);
+
+                const size = 30;
+                const posX = Math.floor(Math.random() * (container.offsetWidth - size));
+                const posY = Math.floor(Math.random() * (container.offsetHeight - size));
+
+                box = document.createElement('div');
+                box.style.width = size + 'px';
+                box.style.height = size + 'px';
+                box.style.backgroundColor = '#0000FF';
+                box.style.position = 'absolute';
+                box.style.left = posX + 'px';
+                box.style.top = posY + 'px';
+                box.style.cursor = 'pointer';
+                box.style.borderRadius = '5px';
+                box.title = '¡Haz clic aquí!';
+
+                box.onclick = () => {
+                    score += 2;
+                    scoreElement.textContent = 'Puntuación: ' + score;
+                    createBox();
+                };
+
+                container.appendChild(box);
+            }
+
+            createBox();
+    }
+    </script>
+</body>
+</html>
